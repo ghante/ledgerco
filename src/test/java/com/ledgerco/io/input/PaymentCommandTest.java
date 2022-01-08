@@ -8,12 +8,12 @@ import static org.mockito.Mockito.verify;
 
 class PaymentCommandTest {
     @Test
-    void shouldAddPayment() {
+    void shouldAddPayment() throws Exception {
         LedgerApp ledgerApp = mock(LedgerApp.class);
         PaymentCommand paymentCommand = new PaymentCommand("x bank borrower 100 3");
 
         paymentCommand.execute(ledgerApp);
 
-        verify(ledgerApp).addPayment("bank", "borrower", 100, 3);
+        verify(ledgerApp).addPayment("bank", "borrower", 3, 100);
     }
 }

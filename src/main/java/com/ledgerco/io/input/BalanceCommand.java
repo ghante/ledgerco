@@ -10,7 +10,7 @@ public class BalanceCommand implements ICommand {
     }
 
     @Override
-    public void execute(LedgerApp ledgerApp) {
+    public void execute(LedgerApp ledgerApp) throws Exception {
         String[] strings = input.split(" ");
         ledgerApp.balance(strings[1], strings[2], Integer.parseInt(strings[3]));
     }

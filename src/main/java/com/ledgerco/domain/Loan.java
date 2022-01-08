@@ -18,6 +18,10 @@ public class Loan {
         this.payments = new Payments();
     }
 
+    public boolean isFor(String bank, String borrower) {
+        return bankName.equalsIgnoreCase(bank) && borrowerName.equalsIgnoreCase(borrower);
+    }
+
     public int remainingInstallmentsAfter(int installmentNumber) {
         double remainingAmount = totalDebt() - amountPaidAfterInstallments(installmentNumber);
         return ceilToInt(remainingAmount / installmentAmount());

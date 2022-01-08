@@ -8,7 +8,7 @@ import static org.mockito.Mockito.verify;
 
 class BalanceCommandTest {
     @Test
-    void shouldCreateLoan() {
+    void shouldCreateLoan() throws Exception {
         LedgerApp ledgerApp = mock(LedgerApp.class);
         BalanceCommand balanceCommand = new BalanceCommand("x bank borrower 1");
 

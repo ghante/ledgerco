@@ -157,4 +157,14 @@ class LoanTest {
         assertThat(loan.remainingInstallmentsAfter(4)).isEqualTo(0);
         assertThat(loan.remainingInstallmentsAfter(5)).isEqualTo(0);
     }
+
+    @Test
+    void shouldIdentifyLoanByBankAndBorrowerName() {
+        Loan loan = new Loan("bank", "borrower", 1, 1, 1);
+
+        assertThat(loan.isFor("bank1", "borrower")).isFalse();
+        assertThat(loan.isFor("bank", "borrower1")).isFalse();
+        assertThat(loan.isFor("bank1", "borrower1")).isFalse();
+        assertThat(loan.isFor("bank", "borrower")).isTrue();
+    }
 }

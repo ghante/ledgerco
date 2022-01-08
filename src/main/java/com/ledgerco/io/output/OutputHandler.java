@@ -5,6 +5,10 @@ import java.io.PrintStream;
 public class OutputHandler {
     private final PrintStream out;
 
+    public OutputHandler() {
+        this(System.out);
+    }
+
     public OutputHandler(PrintStream out) {
         this.out = out;
     }

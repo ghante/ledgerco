@@ -3,12 +3,34 @@
  */
 package com.ledgerco;
 
+import com.ledgerco.io.input.CommandFactory;
+import com.ledgerco.io.input.FileInputParser;
+import com.ledgerco.io.input.ICommand;
+import com.ledgerco.io.output.OutputHandler;
+
+import java.util.List;
+
 public class App {
-    public String getGreeting() {
-        return "Hello world.";
+    private final FileInputParser inputParser;
+    private final CommandFactory commandFactory;
+    private final LedgerApp ledgerApp;
+
+    public App(FileInputParser inputParser, CommandFactory commandFactory, LedgerApp ledgerApp) {
+        this.inputParser = inputParser;
+        this.commandFactory = commandFactory;
+        this.ledgerApp = ledgerApp;
     }
 
-    public static void main(String[] args) {
-        System.out.println(new App().getGreeting());
+    public void run(String filePath) throws Exception {
+        List<String> inputLines = inputParser.parse(filePath);
+        List<ICommand> commands = commandFactory.create(inputLines);
+        for (ICommand c : commands) {
+            c.execute(ledgerApp);
+        }
+    }
+
+    public static void main(String[] args) throws Exception {
+        new App(new FileInputParser(), new CommandFactory(), new LedgerApp(new OutputHandler()))
+                .run(args[0]);
     }
 }

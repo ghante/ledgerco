@@ -7,6 +7,7 @@ public class Loan {
     private final double principal;
     private final double term;
     private final double rateOfInterest;
+    private final Payments payments;
 
     public Loan(String bankName, String borrowerName, double principal, double term, double rateOfInterest) {
         this.bankName = bankName;
@@ -14,21 +15,36 @@ public class Loan {
         this.principal = principal;
         this.term = term;
         this.rateOfInterest = rateOfInterest;
+        this.payments = new Payments();
     }
 
-    public int remainingInstallmentsAfter(int installments) {
-        if (installments <= termInMonths() && totalDebt() > 0) {
-            return ceilToInt(termInMonths() - installments);
-        }
-        return 0;
+    public int remainingInstallmentsAfter(int installmentNumber) {
+        double remainingAmount = totalDebt() - amountPaidAfterInstallments(installmentNumber);
+        return ceilToInt(remainingAmount / installmentAmount());
     }
 
-    public int amountPaidAfterInstallments(int installments) {
-        int totalAmountInInstallments = installmentAmount() * Math.min(installments, termInMonths());
-        if (totalAmountInInstallments > totalDebt()) {
-            return ceilToInt(totalDebt());
+    public int amountPaidAfterInstallments(int installmentNumber) {
+        int amountPaid = 0;
+        for (int i = 1; i <= installmentNumber; i++) {
+            amountPaid = amountPaid + payments.paidAfter(i - 1);
+            amountPaid = amountPaid + installmentAmountAfter(amountPaid);
         }
-        return totalAmountInInstallments;
+
+        return amountPaid;
+    }
+
+    public void addPayment(int afterInstallment, int amount) {
+        this.payments.add(new Payment(afterInstallment, amount));
+    }
+
+    private int installmentAmountAfter(int amountPaid) {
+        int installmentAmount = installmentAmount();
+        double totalDebt = totalDebt();
+        if (totalDebt - amountPaid > installmentAmount) {
+            return installmentAmount;
+        }
+
+        return ceilToInt(Math.max(totalDebt - amountPaid, 0));
     }
 
     private int termInMonths() {

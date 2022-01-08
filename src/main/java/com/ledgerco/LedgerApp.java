@@ -8,7 +8,7 @@ import java.util.List;
 
 public class LedgerApp {
     private final List<Loan> loans;
-    private OutputHandler outputHandler;
+    private final OutputHandler outputHandler;
 
     public LedgerApp(OutputHandler outputHandler) {
         this.outputHandler = outputHandler;
@@ -32,10 +32,9 @@ public class LedgerApp {
     }
 
     private Loan findLoanFor(String bank, String borrower) throws Exception {
-        Loan loan = loans.stream()
+        return loans.stream()
                 .filter(l -> l.isFor(bank, borrower))
                 .findFirst()
                 .orElseThrow(Exception::new);
-        return loan;
     }
 }

@@ -3,6 +3,8 @@ package com.ledgerco.io.input;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -11,9 +13,13 @@ class CommandFactoryTest {
 
     @Test
     void shouldCreateCorrectCommands() throws IOException {
-        assertThat(CommandFactory.create("loan")).isInstanceOf(LoanCommand.class);
-        assertThat(CommandFactory.create("payment")).isInstanceOf(PaymentCommand.class);
-        assertThat(CommandFactory.create("balance")).isInstanceOf(BalanceCommand.class);
-        assertThatThrownBy(() -> CommandFactory.create("invalid")).isInstanceOf(IOException.class);
+        List<ICommand> commands = new CommandFactory().create(Arrays.asList("loan", "payment", "balance"));
+        assertThat(commands.get(0)).isInstanceOf(LoanCommand.class);
+        assertThat(commands.get(1)).isInstanceOf(PaymentCommand.class);
+        assertThat(commands.get(2)).isInstanceOf(BalanceCommand.class);
+
+        assertThatThrownBy(() -> new CommandFactory()
+                .create(Arrays.asList("loan", "invalid")))
+                .isInstanceOf(IOException.class);
     }
 }

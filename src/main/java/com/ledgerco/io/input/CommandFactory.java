@@ -1,9 +1,19 @@
 package com.ledgerco.io.input;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CommandFactory {
-    public static ICommand create(String input) throws IOException {
+    public List<ICommand> create(List<String> inputLines) throws IOException {
+        ArrayList<ICommand> commands = new ArrayList<>();
+        for (String input : inputLines) {
+            commands.add(createFor(input));
+        }
+        return commands;
+    }
+
+    private ICommand createFor(String input) throws IOException {
         String commandString = input.split(" ")[0];
 
         if (commandString.equalsIgnoreCase("loan")) {

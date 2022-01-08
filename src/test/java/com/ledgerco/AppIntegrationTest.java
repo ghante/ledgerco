@@ -1,15 +1,11 @@
 package com.ledgerco;
 
-import com.ledgerco.io.input.CommandFactory;
-import com.ledgerco.io.input.FileInputParser;
-import com.ledgerco.io.output.OutputHandler;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import java.nio.file.Paths;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

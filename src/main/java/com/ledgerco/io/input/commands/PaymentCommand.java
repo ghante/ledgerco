@@ -1,4 +1,4 @@
-package com.ledgerco.io.input;
+package com.ledgerco.io.input.commands;
 
 import com.ledgerco.LedgerApp;
 

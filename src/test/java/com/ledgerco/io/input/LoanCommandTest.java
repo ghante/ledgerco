@@ -1,6 +1,7 @@
 package com.ledgerco.io.input;
 
 import com.ledgerco.LedgerApp;
+import com.ledgerco.io.input.commands.LoanCommand;
 import org.junit.jupiter.api.Test;
 
 import static org.mockito.Mockito.mock;

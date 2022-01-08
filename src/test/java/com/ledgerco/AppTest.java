@@ -4,9 +4,9 @@
 package com.ledgerco;
 
 
-import com.ledgerco.io.input.CommandFactory;
+import com.ledgerco.io.input.commands.CommandFactory;
 import com.ledgerco.io.input.FileInputParser;
-import com.ledgerco.io.input.ICommand;
+import com.ledgerco.io.input.commands.ICommand;
 import org.junit.jupiter.api.Test;
 import org.mockito.InOrder;
 

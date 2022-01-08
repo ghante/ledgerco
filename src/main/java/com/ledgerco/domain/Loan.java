@@ -29,9 +29,11 @@ public class Loan {
 
     public int amountPaidAfterInstallments(int installmentNumber) {
         int amountPaid = 0;
-        for (int i = 1; i <= installmentNumber; i++) {
-            amountPaid = amountPaid + payments.paidAfter(i - 1);
-            amountPaid = amountPaid + installmentAmountAfter(amountPaid);
+        for (int i = 0; i <= installmentNumber; i++) {
+            if (i > 0) {
+                amountPaid = amountPaid + installmentAmountAfter(amountPaid);
+            }
+            amountPaid = amountPaid + payments.paidAfter(i);
         }
 
         return amountPaid;

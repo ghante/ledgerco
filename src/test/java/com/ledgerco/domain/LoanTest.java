@@ -59,7 +59,7 @@ class LoanTest {
 
         assertThat(loan.remainingInstallmentsAfter(0)).isEqualTo(6);
         assertThat(loan.remainingInstallmentsAfter(1)).isEqualTo(5);
-        assertThat(loan.remainingInstallmentsAfter(2)).isEqualTo(4);
+        assertThat(loan.remainingInstallmentsAfter(2)).isEqualTo(3);
         assertThat(loan.remainingInstallmentsAfter(3)).isEqualTo(2);
         assertThat(loan.remainingInstallmentsAfter(4)).isEqualTo(1);
         assertThat(loan.remainingInstallmentsAfter(5)).isEqualTo(0);
@@ -76,7 +76,7 @@ class LoanTest {
 
         assertThat(loan.amountPaidAfterInstallments(0)).isEqualTo(0);
         assertThat(loan.amountPaidAfterInstallments(1)).isEqualTo(337);
-        assertThat(loan.amountPaidAfterInstallments(2)).isEqualTo(337 * 2);
+        assertThat(loan.amountPaidAfterInstallments(2)).isEqualTo(337 * 2 + 600);
         assertThat(loan.amountPaidAfterInstallments(3)).isEqualTo(337 * 3 + 600);
         assertThat(loan.amountPaidAfterInstallments(4)).isEqualTo(337 * 4 + 600);
         assertThat(loan.amountPaidAfterInstallments(5)).isEqualTo(2020);
@@ -96,7 +96,7 @@ class LoanTest {
         assertThat(loan.remainingInstallmentsAfter(2)).isEqualTo(4);
         assertThat(loan.remainingInstallmentsAfter(3)).isEqualTo(3);
         assertThat(loan.remainingInstallmentsAfter(4)).isEqualTo(2);
-        assertThat(loan.remainingInstallmentsAfter(5)).isEqualTo(1);
+        assertThat(loan.remainingInstallmentsAfter(5)).isEqualTo(0);
         assertThat(loan.remainingInstallmentsAfter(6)).isEqualTo(0);
         assertThat(loan.remainingInstallmentsAfter(7)).isEqualTo(0);
     }
@@ -113,7 +113,7 @@ class LoanTest {
         assertThat(loan.amountPaidAfterInstallments(2)).isEqualTo(337 * 2);
         assertThat(loan.amountPaidAfterInstallments(3)).isEqualTo(337 * 3);
         assertThat(loan.amountPaidAfterInstallments(4)).isEqualTo(337 * 4);
-        assertThat(loan.amountPaidAfterInstallments(5)).isEqualTo(337 * 5);
+        assertThat(loan.amountPaidAfterInstallments(5)).isEqualTo(337 * 5 + 400);
         assertThat(loan.amountPaidAfterInstallments(6)).isEqualTo(2085);
         assertThat(loan.amountPaidAfterInstallments(7)).isEqualTo(2085);
     }
@@ -125,7 +125,7 @@ class LoanTest {
 
         loan.addPayment(0, 500);
 
-        assertThat(loan.amountPaidAfterInstallments(0)).isEqualTo(0);
+        assertThat(loan.amountPaidAfterInstallments(0)).isEqualTo(500);
         assertThat(loan.amountPaidAfterInstallments(1)).isEqualTo(337 + 500);
         assertThat(loan.amountPaidAfterInstallments(2)).isEqualTo(337 * 2 + 500);
         assertThat(loan.amountPaidAfterInstallments(3)).isEqualTo(337 * 3 + 500);
@@ -143,16 +143,16 @@ class LoanTest {
         loan.addPayment(0, 500);
         loan.addPayment(2, 400);
 
-        assertThat(loan.amountPaidAfterInstallments(0)).isEqualTo(0);
+        assertThat(loan.amountPaidAfterInstallments(0)).isEqualTo(500);
         assertThat(loan.amountPaidAfterInstallments(1)).isEqualTo(337 + 500);
-        assertThat(loan.amountPaidAfterInstallments(2)).isEqualTo(337 * 2 + 500);
+        assertThat(loan.amountPaidAfterInstallments(2)).isEqualTo(337 * 2 + 500 + 400);
         assertThat(loan.amountPaidAfterInstallments(3)).isEqualTo(337 * 3 + 500 + 400);
         assertThat(loan.amountPaidAfterInstallments(4)).isEqualTo(2020);
         assertThat(loan.amountPaidAfterInstallments(5)).isEqualTo(2020);
 
-        assertThat(loan.remainingInstallmentsAfter(0)).isEqualTo(6);
+        assertThat(loan.remainingInstallmentsAfter(0)).isEqualTo(5);
         assertThat(loan.remainingInstallmentsAfter(1)).isEqualTo(4);
-        assertThat(loan.remainingInstallmentsAfter(2)).isEqualTo(3);
+        assertThat(loan.remainingInstallmentsAfter(2)).isEqualTo(2);
         assertThat(loan.remainingInstallmentsAfter(3)).isEqualTo(1);
         assertThat(loan.remainingInstallmentsAfter(4)).isEqualTo(0);
         assertThat(loan.remainingInstallmentsAfter(5)).isEqualTo(0);

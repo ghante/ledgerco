@@ -3,6 +3,7 @@ package com.ledgerco;
 import com.ledgerco.io.output.OutputHandler;
 import org.junit.jupiter.api.Test;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.*;
 
 class LedgerAppTest {
@@ -35,5 +36,13 @@ class LedgerAppTest {
 
         verify(outputHandler).printBalance("bank1", "borrower1", 110, 1);
         verify(outputHandler).printBalance("bank2", "borrower2", 180, 3);
+    }
+
+    @Test
+    void shouldThrowExceptionIfLoanNotFound() throws Exception {
+        LedgerApp ledgerApp = new LedgerApp(null);
+        assertThatThrownBy(() -> ledgerApp
+                .addPayment("bank1", "borrower1", 3, 50))
+                .isInstanceOf(Exception.class);
     }
 }

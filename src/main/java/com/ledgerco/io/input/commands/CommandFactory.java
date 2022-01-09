@@ -1,11 +1,10 @@
 package com.ledgerco.io.input.commands;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class CommandFactory {
-    public List<ICommand> create(List<String> inputLines) throws IOException {
+    public List<ICommand> create(List<String> inputLines) throws Exception {
         ArrayList<ICommand> commands = new ArrayList<>();
         for (String input : inputLines) {
             commands.add(createFor(input));
@@ -13,7 +12,7 @@ public class CommandFactory {
         return commands;
     }
 
-    private ICommand createFor(String input) throws IOException {
+    private ICommand createFor(String input) throws Exception {
         String commandString = input.split(" ")[0];
 
         if (commandString.equalsIgnoreCase("loan")) {
@@ -26,6 +25,6 @@ public class CommandFactory {
             return new BalanceCommand(input);
         }
 
-        throw new IOException();
+        throw new Exception();
     }
 }

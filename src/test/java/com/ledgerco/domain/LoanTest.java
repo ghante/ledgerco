@@ -157,6 +157,19 @@ class LoanTest {
         assertThat(loan.remainingInstallmentsAfter(4)).isEqualTo(0);
         assertThat(loan.remainingInstallmentsAfter(5)).isEqualTo(0);
     }
+    @Test
+    void shouldCalculateCorrectAmountAndInstallmentsForAllPaymentInLumpSum() {
+        Loan loan = new Loan("bankName", "borrowerName",
+                200, 0.5, 1);
+
+        loan.addPayment(0, 201);
+
+        assertThat(loan.amountPaidAfterInstallments(0)).isEqualTo(201);
+        assertThat(loan.amountPaidAfterInstallments(1)).isEqualTo(201);
+
+        assertThat(loan.remainingInstallmentsAfter(0)).isEqualTo(0);
+        assertThat(loan.remainingInstallmentsAfter(1)).isEqualTo(0);
+    }
 
     @Test
     void shouldIdentifyLoanByBankAndBorrowerName() {

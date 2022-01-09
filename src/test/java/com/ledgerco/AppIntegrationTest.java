@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.nio.file.Paths;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -28,9 +29,11 @@ public class AppIntegrationTest {
 
     @Test
     void shouldProcessInputWithLoans() throws Exception {
-        App.main(new String[]{"src/test/data/test-integration-loans"});
+        App.main(new String[]{
+                Paths.get("src/test/data/test-integration-loans").toAbsolutePath().toString()
+        });
         byteArrayOutputStream.flush();
-        assertThat(byteArrayOutputStream.toString().split("\n"))
+        assertThat(byteArrayOutputStream.toString().split(System.lineSeparator()))
                 .containsExactly(
                         "IDIDI Dale 1000 55",
                         "IDIDI Dale 8000 20",
@@ -40,9 +43,11 @@ public class AppIntegrationTest {
 
     @Test
     void shouldProcessInputWithLoansAndPayments() throws Exception {
-        App.main(new String[]{"src/test/data/test-integration-loans-with-payments"});
+        App.main(new String[]{
+                Paths.get("src/test/data/test-integration-loans-with-payments").toAbsolutePath().toString()
+        });
         byteArrayOutputStream.flush();
-        assertThat(byteArrayOutputStream.toString().split("\n"))
+        assertThat(byteArrayOutputStream.toString().split(System.lineSeparator()))
                 .containsExactly(
                         "IDIDI Dale 1326 9",
                         "IDIDI Dale 3652 4",
